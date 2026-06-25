@@ -7,7 +7,7 @@ El script usa el mismo modelo de acceso API que la skill `skai`.
 Orden de busqueda del `.env`:
 
 1. `--env-file`
-2. `skai-skill/.env`
+2. `skai-creative-performance-pipeline/.env`
 3. `${CODEX_HOME:-$HOME/.codex}/skills/skai/.env`
 4. `.env` del directorio actual
 
@@ -30,11 +30,11 @@ Si no se especifica `--country`, el script usa `SKAI_COUNTRY`; si no existe, usa
 ## Comando Base
 
 ```bash
-python3 ./skai-skill/scripts/skai_report_export.py \
+python3 scripts/skai_report_export.py \
   --start-date 2026-04-01 \
   --end-date 2026-04-30 \
   --country ES \
-  --output-dir /tmp/skai-skill-es
+  --output-dir /tmp/skai-creative-performance-pipeline-es
 ```
 
 ## Convenciones
@@ -46,7 +46,7 @@ python3 ./skai-skill/scripts/skai_report_export.py \
 
 ## Ajuste De Campos
 
-El field config por defecto esta en [default-field-config.json](./skai-skill/references/default-field-config.json).
+El field config por defecto esta en [default-field-config.json](default-field-config.json).
 
 Si la cuenta usa otros nombres de campo:
 
@@ -57,12 +57,12 @@ Si la cuenta usa otros nombres de campo:
 Ejemplo:
 
 ```bash
-python3 ./skai-skill/scripts/skai_report_export.py \
+python3 scripts/skai_report_export.py \
   --start-date 2026-04-01 \
   --end-date 2026-04-30 \
   --country ES \
   --field-config /tmp/skai-fields.json \
-  --output-dir /tmp/skai-skill-es
+  --output-dir /tmp/skai-creative-performance-pipeline-es
 ```
 
 ## Campos Adicionales
@@ -80,9 +80,9 @@ Si necesitas `Spend`, `Date`, `CPA`, `ROAS` u otros campos, anadelos al field co
 Puedes validar el flujo con el fixture ya existente de la otra skill:
 
 ```bash
-python3 ./skai-skill/scripts/skai_report_export.py \
+python3 scripts/skai_report_export.py \
   --start-date 2026-03-01 \
   --end-date 2026-03-31 \
-  --output-dir /tmp/skai-skill-sample \
+  --output-dir /tmp/skai-creative-performance-pipeline-sample \
   --input-json ./skai/scripts/fixtures/sample_report.json
 ```

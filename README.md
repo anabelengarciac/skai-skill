@@ -1,4 +1,4 @@
-# Skai Performance Analyst Skill
+# Skai Creative Performance Pipeline
 
 ![Status](https://img.shields.io/badge/status-showcase_ready-2ea44f)
 ![Built for](https://img.shields.io/badge/built_for-final_degree_project-0969da)

@@ -1,52 +1,52 @@
 ---
-name: skai-skill
-description: Consulta datos de Skai por API, exporta reportes de performance listos para analisis y responde preguntas de senior data analyst sobre ads, campaigns, brands, channels, comparativas entre periodos, drivers, outliers y checks de calidad. Use when Codex needs to leer datos directamente desde Skai, no solo enriquecer datasets con ImageUrl. Si no se especifica pais, asumir USA.
+name: skai-creative-performance-pipeline
+description: Export, structure, and quality-check Skai performance data for creative analytics. Use when Codex needs to build date- and country-specific datasets, compare periods, inspect campaigns, brands, channels, ads, drivers, outliers, and prepare analysis-ready CSV/JSON outputs. If no country is specified, assume USA.
 ---
 
-# Skai Skill
+# Skai Creative Performance Pipeline
 
 ## Overview
 
-Usa esta skill para leer datos de Skai desde la plataforma y convertirlos en un export analitico listo para responder preguntas de negocio y performance. Reutiliza el mismo acceso API que la skill `skai`, pero en lugar de hacer solo mapping de `ImageUrl`, prepara un reporte completo para analisis.
+Use this skill to read Skai platform data and convert it into analysis-ready exports for creative performance work. It is designed for workflows that need repeatable data pulls by date range and country, configurable fields, quality checks, and period comparisons.
 
 ## Workflow
 
-1. Confirmar la pregunta de negocio, el rango de fechas, el pais y si hace falta comparar contra otro periodo.
-2. Revisar [configuration.md](./skai-skill/references/configuration.md) si faltan credenciales o si necesitas cambiar campos.
-3. Usar por defecto [default-field-config.json](./skai-skill/references/default-field-config.json) para sacar un reporte a nivel `AdId`.
-4. Ejecutar [skai_report_export.py](./skai-skill/scripts/skai_report_export.py) para exportar datos de Skai.
-5. Cargar `skai_report_records` y contestar la pregunta con calculos reproducibles, no con intuicion.
-6. Si la pregunta es comparativa entre periodos, ejecutar el script dos veces y hacer el analisis local despues.
+1. Confirm the business or research question, date range, country, and whether a prior period is needed.
+2. Read [configuration.md](references/configuration.md) if credentials are missing or fields need to be changed.
+3. Use [default-field-config.json](references/default-field-config.json) by default for an `AdId`-level export.
+4. Run [skai_report_export.py](scripts/skai_report_export.py) to export Skai data.
+5. Load `skai_report_records` and answer with reproducible calculations, not intuition.
+6. For period comparisons, run the script twice and perform the comparison locally.
 
 ## Quick Start
 
 Comando base:
 
 ```bash
-python3 ./skai-skill/scripts/skai_report_export.py \
+python3 scripts/skai_report_export.py \
   --start-date 2026-04-01 \
   --end-date 2026-04-30 \
   --country ES \
-  --output-dir /tmp/skai-skill-es
+  --output-dir /tmp/skai-creative-performance-pipeline-es
 ```
 
 Para comparar periodos:
 
 ```bash
-python3 ./skai-skill/scripts/skai_report_export.py \
+python3 scripts/skai_report_export.py \
   --start-date 2026-04-01 \
   --end-date 2026-04-30 \
   --country ES \
-  --output-dir /tmp/skai-skill-current
+  --output-dir /tmp/skai-creative-performance-pipeline-current
 
-python3 ./skai-skill/scripts/skai_report_export.py \
+python3 scripts/skai_report_export.py \
   --start-date 2026-03-01 \
   --end-date 2026-03-31 \
   --country ES \
-  --output-dir /tmp/skai-skill-prior
+  --output-dir /tmp/skai-creative-performance-pipeline-prior
 ```
 
-Si la pregunta debe seguir la misma convencion de la skill `skai` para excluir `EXCLUDED_BRAND`, anadir `--exclude-brand`. Si el analisis debe quedarse solo con creatividades no-video, anadir `--exclude-video`.
+If the analysis should follow the same exclusion convention as the `skai` enrichment skill, add `--exclude-brand`. If the analysis should keep only non-video creatives, add `--exclude-video`.
 
 ## Question Types
 
@@ -68,7 +68,7 @@ Usar esta skill para preguntas como:
 - Si la pregunta requiere campos no presentes en el export por defecto, copiar el field config y extenderlo. No inventar respuestas.
 - Si el usuario pide datos canonicos de negocio y existe una fuente curada fuera de Skai, explicitar que estas respondiendo desde Skai platform data.
 
-Ver [analysis-playbook.md](./skai-skill/references/analysis-playbook.md) para formulas y patrones de analisis.
+See [analysis-playbook.md](references/analysis-playbook.md) for formulas and analysis patterns.
 
 ## Outputs
 
